@@ -1,9 +1,11 @@
-package com.melnikacg.instagramviewer;
+package com.melnikacg.instagramviewer.View;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.melnikacg.instagramviewer.R;
 
 
 public class MainActivity extends ActionBarActivity {
