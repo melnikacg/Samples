@@ -5,16 +5,13 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.melnikacg.instagramviewer.Model.Constants;
 import com.octo.android.robospice.SpiceService;
 import com.octo.android.robospice.persistence.CacheManager;
 import com.octo.android.robospice.persistence.binary.InFileBitmapObjectPersister;
 import com.octo.android.robospice.persistence.exception.CacheCreationException;
 import com.octo.android.robospice.persistence.string.InFileStringObjectPersister;
 
-/**
- * Simple service
- * @author sni
- */
 public class SampleSpiceService extends SpiceService {
 
     @Override
@@ -30,7 +27,6 @@ public class SampleSpiceService extends SpiceService {
         return cacheManager;
     }
 
-
     @Override
     public int getThreadCount() {
         return 3;
@@ -39,36 +35,36 @@ public class SampleSpiceService extends SpiceService {
     @Override
     public void onStart(Intent intent, int startId) {
         super.onStart(intent, startId);
-        Log.v("SampleSpiceService","Starting service");
+        Log.v(Constants.ROBO_SPICE_LOG_TAG, "Starting service");
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.v("SampleSpiceService","Starting service");
+        Log.v(Constants.ROBO_SPICE_LOG_TAG, "Starting service");
         return super.onStartCommand(intent, flags, startId);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.v("SampleSpiceService","Stopping service");
+        Log.v(Constants.ROBO_SPICE_LOG_TAG, "Stopping service");
     }
 
     @Override
     public IBinder onBind(Intent intent) {
-        Log.v("SampleSpiceService","Bound service");
+        Log.v(Constants.ROBO_SPICE_LOG_TAG, "Bound service");
         return super.onBind(intent);
     }
 
     @Override
     public void onRebind(Intent intent) {
-        Log.v("SampleSpiceService","Rebound service");
+        Log.v(Constants.ROBO_SPICE_LOG_TAG, "Rebound service");
         super.onRebind(intent);
     }
 
     @Override
     public boolean onUnbind(Intent intent) {
-        Log.v("SampleSpiceService","Unbound service");
+        Log.v(Constants.ROBO_SPICE_LOG_TAG, "Unbound service");
         return super.onUnbind(intent);
     }
 }

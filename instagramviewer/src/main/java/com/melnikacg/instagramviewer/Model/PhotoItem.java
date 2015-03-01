@@ -3,6 +3,8 @@ package com.melnikacg.instagramviewer.Model;
 import com.google.gson.annotations.SerializedName;
 import com.melnikacg.instagramviewer.Presenter.RelativeTime;
 
+import java.util.ArrayList;
+
 public class PhotoItem {
 
     @SerializedName("created_time")
@@ -62,6 +64,14 @@ public class PhotoItem {
         return 0;
     }
 
+    // non-fields
+    public ArrayList<CommentItem> getCommentsArrayList() {
+
+        if (getCommentsCount() > 0)
+            return mPhotoItemComments.getCommentItems();
+        return null;
+    }
+
     @SerializedName("user")
     private PhotoItemUser mPhotoItemUser;
 
@@ -77,37 +87,13 @@ public class PhotoItem {
     @SerializedName("comments")
     private PhotoItemComments mPhotoItemComments;
 
-
-    // TODO
-    public String getComment1() {
-        return "";
-    }
-
-    public String getUser1() {
-        return "";
-    }
-
-    public String getComment2() {
-        return "";
-    }
-
-    public String getUser2() {
-        return "";
-    }
-
-    //public int imageHeight;
-    //public int likesCount;
-    //public int commentsCount;
-
     //non-field
     public String getRelativeTime() {
 
         return RelativeTime.getRelativeTime(mCreatedTime);
     }
 
-    class PhotoItemCaption {
-
-        //photo.caption = photoJSON.getJSONObject("caption").getString("text");
+    static class PhotoItemCaption {
 
         @SerializedName("text")
         private String mText;
@@ -117,9 +103,7 @@ public class PhotoItem {
         }
     }
 
-
-    class PhotoItemImages {
-        // username, caption, image_url, height, likes_count
+    static class PhotoItemImages {
 
         @SerializedName("images")
         private String mImages;
@@ -127,43 +111,23 @@ public class PhotoItem {
         @SerializedName("standard_resolution")
         private PhotoItemImagesStandartResolution mPhotoItemImagesStandartResolution;
 
-        //public String getImages() {
-        //    return mImages;
-        //}
-
-        // photo.imageUrl = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getString("url");
-        //photo.imageHeight = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getInt("height");
-
-        class PhotoItemImagesStandartResolution {
-            // username, caption, image_url, height, likes_count
+        static class PhotoItemImagesStandartResolution {
 
             @SerializedName("url")
             public String mImageUrl;
-
-            @SerializedName("height")
-            public int mImageHeight;
 
             public String getImageUrl() {
                 return mImageUrl;
             }
 
-            public int getImageHeight() {
-                return mImageHeight;
-            }
-
-            // photo.imageUrl = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getString("url");
-            //photo.imageHeight = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getInt("height");
         }
 
     }
 
-    class PhotoItemLikes {
-
-        //photo.likesCount = photoJSON.getJSONObject("likes").getInt("count");
+    static class PhotoItemLikes {
 
         @SerializedName("count")
         private int mLikesCount;
-
 
         public int getLikesCount() {
             return mLikesCount;
@@ -171,10 +135,7 @@ public class PhotoItem {
     }
 
 
-    class PhotoItemUser {
-
-        // photo.profileUrl = photoJSON.getJSONObject("user").getString("profile_picture");
-        // photo.username = photoJSON.getJSONObject("user").getString("username");
+    static class PhotoItemUser {
 
         @SerializedName("username")
         private String mUsername;
@@ -192,12 +153,17 @@ public class PhotoItem {
 
     }
 
-    class PhotoItemComments {
-
-        //photo.commentsCount = photoJSON.getJSONObject("comments").getInt("count")
+    static class PhotoItemComments {
 
         @SerializedName("count")
         private int mCount;
+
+        @SerializedName("data")
+        private ArrayList<CommentItem> mCommentItems;
+
+        public ArrayList<CommentItem> getCommentItems() {
+            return mCommentItems;
+        }
 
         public int getCount() {
             return mCount;

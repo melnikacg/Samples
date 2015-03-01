@@ -37,7 +37,7 @@ public class CommentItem {
         return RelativeTime.getRelativeTime(mCreatedTime);
     }
 
-    class CommentItemFrom {
+    static class CommentItemFrom {
 
         @SerializedName("profile_picture")
         private String mProfileUrl;
