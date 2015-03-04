@@ -8,9 +8,8 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/instagramviewer" />
-            <option value="$PROJECT_DIR$/myapplication1" />
+            <option value="$PROJECT_DIR$/simpletwitterviewer" />
           </set>
         </option>
       </GradleProjectSettings>

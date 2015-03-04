@@ -1,1 +1,1 @@
-include ':app', ':instagramviewer', ':myapplication1'
+include ':instagramviewer', ':simpletwitterviewer'
