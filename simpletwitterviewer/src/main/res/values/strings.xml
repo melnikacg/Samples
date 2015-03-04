@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MyTwitter</string>
+    <string name="hello_world">Hello world!</string>
+
+    <string name="slide_name">Timeline viewer</string>
+
+    <!-- Sample menu -->
+    <string name="action_settings">Settings</string>
+
+</resources>
