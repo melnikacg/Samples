@@ -1,6 +1,5 @@
 package com.melnikacg.mytwitter;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,9 +9,6 @@ import android.support.v7.app.ActionBarActivity;
 
 import com.astuetz.PagerSlidingTabStrip;
 
-/**
- * Created by NP900X3D-A02 on 04.03.2015.
- */
 public class SlideActivity extends ActionBarActivity {
 
     @Override
@@ -32,27 +28,33 @@ public class SlideActivity extends ActionBarActivity {
 
     public class MyPagerAdapter extends FragmentPagerAdapter {
 
-        public MyPagerAdapter(FragmentManager fm) {
-            super(fm);
+        public MyPagerAdapter(FragmentManager fragmentManager) {
+            super(fragmentManager);
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return (position == 0) ? "user Timeline" : "home Timeline";
+            switch (position) {
+                case 0:
+                    return "home Timeline";
+                case 1:
+                    return "user Timeline";
+                case 2:
+                    return "mentions Timeline";
+                default:
+                    return "user Timeline";
+            }
         }
 
         @Override
         public int getCount() {
-            return 2;
+            return 3;
         }
 
         @Override
         public Fragment getItem(int position) {
 
-            if (position == 0)
-                return new FragmentUserTimeline();
-            else
-                return new FragmentHomeTimeline();
+            return FragmentTimeline.newInstance(position);
 
         }
     }

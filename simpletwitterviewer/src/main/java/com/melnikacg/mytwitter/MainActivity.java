@@ -1,22 +1,21 @@
 package com.melnikacg.mytwitter;
 
-import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.twitter.sdk.android.Twitter;
-import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 import io.fabric.sdk.android.Fabric;
-
-import android.content.Intent;
-import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -25,7 +24,7 @@ public class MainActivity extends ActionBarActivity {
     private static final String TWITTER_KEY = "cx55kA17dFNROnjjLjiT9419K";
     private static final String TWITTER_SECRET = "3weKa3iDfUtw2LPRn0VBSmOAw1TtQ092NWR6boeqjmYtuLBkbc";
 
-    private TwitterLoginButton loginButton;
+    private TwitterLoginButton mLoginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,25 +35,25 @@ public class MainActivity extends ActionBarActivity {
 
         setContentView(R.layout.activity_main);
 
-        loginButton = (TwitterLoginButton) findViewById(R.id.twitter_login_button);
-        loginButton.setCallback(new Callback<TwitterSession>() {
+        mLoginButton = (TwitterLoginButton) findViewById(R.id.twitter_login_button);
+        mLoginButton.setCallback(new Callback<TwitterSession>() {
             @Override
             public void success(Result<TwitterSession> result) {
                 // Do something with result, which provides a TwitterSession for making API calls
                 String name = result.data.getUserName();
-                Toast.makeText(MainActivity.this, "Hello, " + name, Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(MainActivity.this, getResources().getString(R.string.hello)
+                        + name, Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(MainActivity.this, SlideActivity.class));
             }
 
             @Override
             public void failure(TwitterException exception) {
                 // Do something on failure
+                Toast.makeText(MainActivity.this, getResources().getString(R.string.msg_failed_login) + exception.getMessage(),
+                        Toast.LENGTH_SHORT).show();
             }
         });
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -74,13 +73,12 @@ public class MainActivity extends ActionBarActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        loginButton.onActivityResult(requestCode, resultCode, data);
+        mLoginButton.onActivityResult(requestCode, resultCode, data);
     }
 }
