@@ -47,11 +47,9 @@ public class FragmentTimeline extends ListFragment {
         return f;
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);       //st5
-
+        super.onCreate(savedInstanceState);
         mTimeLineStatus = (TimeLineStatus) getArguments().getSerializable(MY_ENUM);
     }
 
@@ -59,14 +57,12 @@ public class FragmentTimeline extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        mTweetAdapter = new TweetViewAdapter(getActivity());      //st2
+        mTweetAdapter = new TweetViewAdapter(getActivity());
         setListAdapter(mTweetAdapter);
-
 
         loadTweets();
 
         View v = inflater.inflate(R.layout.activity_list, container, false);
-
         return v;
     }
 

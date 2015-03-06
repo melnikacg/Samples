@@ -53,7 +53,6 @@ public class SlideActivity extends ActionBarActivity {
 
         @Override
         public Fragment getItem(int position) {
-
             return FragmentTimeline.newInstance(position);
 
         }
