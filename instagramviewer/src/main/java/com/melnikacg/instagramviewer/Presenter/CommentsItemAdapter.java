@@ -25,24 +25,31 @@ public class CommentsItemAdapter extends ArrayAdapter<CommentItem> {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-        CommentItem comment = getItem(position);
+        final ViewHolder viewHolder;
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_comment, parent, false);
+
+            viewHolder = new ViewHolder();
+
+            viewHolder.imgProfile = (ImageView) convertView.findViewById(R.id.imgCommentProfile);
+            viewHolder.tvComment = (TextView) convertView.findViewById(R.id.tvComment);
+            viewHolder.tvCommentTime = (TextView) convertView.findViewById(R.id.tvCommentTime);
+            convertView.setTag(viewHolder);
+
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        ImageView imgProfile = (ImageView) convertView.findViewById(R.id.imgCommentProfile);
-        TextView tvComment = (TextView) convertView.findViewById(R.id.tvComment);
-        TextView tvCommentTime = (TextView) convertView.findViewById(R.id.tvCommentTime);
+        CommentItem comment = getItem(position);
 
-        tvComment.setText(Html.fromHtml("<font color='#3f729b'><b>"
+        viewHolder.tvComment.setText(Html.fromHtml("<font color='#3f729b'><b>"
                 + comment.getUsername() + "</b></font> "
                 + comment.getText()));
-        tvCommentTime.setText(comment.getRelativeTime());
+        viewHolder.tvCommentTime.setText(comment.getRelativeTime());
 
-        // Reset the images from the recycled view
-        imgProfile.setImageResource(0);
-        Picasso.with(getContext()).load(comment.getProfileUrl()).into(imgProfile);
+        viewHolder.imgProfile.setImageResource(0);
+        Picasso.with(getContext()).load(comment.getProfileUrl()).into(viewHolder.imgProfile);
 
         return convertView;
     }
@@ -51,5 +58,13 @@ public class CommentsItemAdapter extends ArrayAdapter<CommentItem> {
     public boolean isEnabled(int position) {
         // disables selection
         return false;
+    }
+
+    private static class ViewHolder {
+
+        public ImageView imgProfile;
+        public TextView tvComment;
+        public TextView tvCommentTime;
+
     }
 }

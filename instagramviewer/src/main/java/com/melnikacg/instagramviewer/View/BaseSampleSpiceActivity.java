@@ -9,7 +9,6 @@ import com.octo.android.robospice.SpiceManager;
  * subclasses an easy access to a {@link com.octo.android.robospice.SpiceManager} that is linked to the {@link android.app.Activity}
  * lifecycle. Typically, in a new project, you will have to create a base class like this one and
  * copy the content of the {@link BaseSampleSpiceActivity} into your own class.
- * @author sni
  */
 public abstract class BaseSampleSpiceActivity extends ActionBarActivity {
     private SpiceManager spiceManager = new SpiceManager(SampleSpiceService.class);

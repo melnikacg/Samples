@@ -10,7 +10,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.melnikacg.instagramviewer.Model.Constants;
 import com.melnikacg.instagramviewer.Model.Photos;
-import com.melnikacg.instagramviewer.Presenter.InstagramPhotosItemAdapter;
+import com.melnikacg.instagramviewer.Presenter.PhotosItemAdapter;
 import com.melnikacg.instagramviewer.Model.PhotoItem;
 import com.melnikacg.instagramviewer.R;
 import com.octo.android.robospice.persistence.DurationInMillis;
@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class PhotosActivity extends BaseSampleSpiceActivity {
 
     private ArrayList<PhotoItem> mListPhotos;
-    private InstagramPhotosItemAdapter mAdapterPhotos;
+    private PhotosItemAdapter mAdapterPhotos;
     private SwipeRefreshLayout mSwipeContainer;
     private SimpleTextRequest mPhotoRequest;
 
@@ -51,26 +51,23 @@ public class PhotosActivity extends BaseSampleSpiceActivity {
 
     private void fetchPopularPhotos() {
 
-        // initialize arraylist
         mListPhotos = new ArrayList<PhotoItem>();
-        // Create adapter bind it to the data in arraylist
-        mAdapterPhotos = new InstagramPhotosItemAdapter(this, mListPhotos);
-        // Populate the data into the listview
+        mAdapterPhotos = new PhotosItemAdapter(this, mListPhotos);
         ListView lvPhotos = (ListView) findViewById(R.id.lvPhotos);
-        // Set the adapter to the listview (population of items)
         lvPhotos.setAdapter(mAdapterPhotos);
 
         // Setup popular url endpoint
         String popularUrl = Constants.POPULAR_URL + Constants.CLIENT_ID;
         mPhotoRequest = new SimpleTextRequest(popularUrl);
-        getSpiceManager().execute(mPhotoRequest, "txt", DurationInMillis.ONE_SECOND, new PhotoRequestListener());
+        getSpiceManager().execute(mPhotoRequest, "txt", DurationInMillis.ONE_SECOND, new RequestPhotoListener());
     }
 
-    public final class PhotoRequestListener implements RequestListener<String> {
+    public final class RequestPhotoListener implements RequestListener<String> {
 
         @Override
         public void onRequestFailure(SpiceException spiceException) {
             Toast.makeText(PhotosActivity.this, "failure", Toast.LENGTH_SHORT).show();
+            mSwipeContainer.setRefreshing(false);
         }
 
         @Override

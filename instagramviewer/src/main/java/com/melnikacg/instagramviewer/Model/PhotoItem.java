@@ -12,6 +12,16 @@ public class PhotoItem {
 
     @SerializedName("id")
     private String id;
+    @SerializedName("user")
+    private PhotoItemUser mPhotoItemUser;
+    @SerializedName("images")
+    private PhotoItemImages mPhotoItemImages;
+    @SerializedName("caption")
+    private PhotoItemCaption mPhotoItemCaption;
+    @SerializedName("likes")
+    private PhotoItemLikes mPhotoItemLikes;
+    @SerializedName("comments")
+    private PhotoItemComments mPhotoItemComments;
 
     public String getId() {
         return id;
@@ -71,21 +81,6 @@ public class PhotoItem {
             return mPhotoItemComments.getCommentItems();
         return null;
     }
-
-    @SerializedName("user")
-    private PhotoItemUser mPhotoItemUser;
-
-    @SerializedName("images")
-    private PhotoItemImages mPhotoItemImages;
-
-    @SerializedName("caption")
-    private PhotoItemCaption mPhotoItemCaption;
-
-    @SerializedName("likes")
-    private PhotoItemLikes mPhotoItemLikes;
-
-    @SerializedName("comments")
-    private PhotoItemComments mPhotoItemComments;
 
     //non-field
     public String getRelativeTime() {
