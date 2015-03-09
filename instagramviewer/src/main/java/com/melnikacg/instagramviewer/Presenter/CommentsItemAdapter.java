@@ -28,7 +28,8 @@ public class CommentsItemAdapter extends ArrayAdapter<CommentItem> {
         final ViewHolder viewHolder;
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_comment, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_comment_material,
+                    parent, false);
 
             viewHolder = new ViewHolder();
 
