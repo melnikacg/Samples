@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:layout_width="match_parent" android:layout_height="match_parent">-->
+
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="5dp">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.makeramen.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/imgCommentProfile"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:padding="8dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_launcher"
+                app:riv_border_color="#aaaaaa"
+                app:riv_border_width="1dp"
+                app:riv_corner_radius="18dp" />
+
+            <TextView
+                android:id="@+id/tvComment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/imgCommentProfile"
+                android:layout_toRightOf="@+id/imgCommentProfile"
+                android:paddingRight="8dp"
+                android:paddingTop="10dp"
+                android:text="@string/comment_1_default_text" />
+
+            <TextView
+                android:id="@+id/tvCommentTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvComment"
+                android:layout_toEndOf="@+id/imgCommentProfile"
+                android:layout_toRightOf="@+id/imgCommentProfile"
+                android:paddingBottom="8dp"
+                android:text="@string/time_default_text"
+                android:textColor="#aaaaaa" />
+
+        </RelativeLayout>
+
+
+    </android.support.v7.widget.CardView>
+    <!--</RelativeLayout>-->
+
+
+    <!--<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="5dp">
+
+
+
+            <TextView
+                android:id="@+id/tvComment1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+
+                android:paddingRight="8dp"
+                android:paddingTop="10dp"
+                android:text="@string/comment_1_default_text" />
+
+            <TextView
+                android:id="@+id/tvCommentTime1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvComment"
+
+                android:paddingBottom="8dp"
+                android:text="@string/time_default_text"
+                android:textColor="#aaaaaa" />
+
+
+
+
+    </android.support.v7.widget.CardView>
+    &lt;!&ndash;</RelativeLayout>&ndash;&gt;-->
+
+</LinearLayout>
