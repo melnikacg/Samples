@@ -2,9 +2,10 @@ package com.melnikacg.instagrammaterial.View;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -21,21 +22,60 @@ import com.octo.android.robospice.request.simple.SimpleTextRequest;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
+
 public class CommentsActivity extends BaseSampleSpiceActivity {
     //public static final String CLIENT_ID = "c8e2cde3f35d402687512d9004ee7b12";
 
     private ArrayList<CommentItem> mListComments;
-    private CommentsItemAdapter mAdapterComments;
-    private SimpleTextRequest mCommentsRequest;
 
+    private RecyclerView mRecyclerView;
+    private CommentsItemAdapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+
+    private SimpleTextRequest mCommentsRequest;
     private String mIdComment;
     private SwipeRefreshLayout mSwipeContainer;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         mIdComment = getIntent().getStringExtra("id");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_comments);
+        setContentView(R.layout.activity_comments_recycler);
+
+        mAdapter = new CommentsItemAdapter(this);
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_comments);
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
+
+        // TODO
+        // no decorator
+        final SlideInLeftAnimator animator = new SlideInLeftAnimator();
+
+        /*animator.setAddDuration(2000);
+        animator.setRemoveDuration(2000);
+        animator.setMoveDuration(2000);
+        animator.setChangeDuration(2000);
+        mRecyclerView.setItemAnimator(animator);
+*/
         fetchComments();
 
         mSwipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainerComments);
@@ -87,13 +127,13 @@ public class CommentsActivity extends BaseSampleSpiceActivity {
     private void fetchComments() {
 
         mListComments = new ArrayList<CommentItem>();
-        mAdapterComments = new CommentsItemAdapter(this, mListComments);
-        ListView lvComments = (ListView) findViewById(R.id.lvComments);
-        lvComments.setAdapter(mAdapterComments);
+
+        // mAdapterComments = new CommentsItemAdapter(this, mListComments);
+        // ListView lvComments = (ListView) findViewById(R.id.lvComments);
+        // lvComments.setAdapter(mAdapterComments);
 
         String commentsUrl = Constants.MEDIA_URL + mIdComment + Constants.COMMENTS_CLIENT_URL
                 + Constants.CLIENT_ID;
-
         mCommentsRequest = new SimpleTextRequest(commentsUrl);
     }
 
@@ -111,11 +151,15 @@ public class CommentsActivity extends BaseSampleSpiceActivity {
             //Toast.makeText(CommentsActivity.this, "success", Toast.LENGTH_SHORT).show();
             final Gson gson = new Gson();
             mListComments.clear();
+            mAdapter.clearAll();
+
             ArrayList<CommentItem> listComments = gson.fromJson(result, Comments.class).getCommentItems();
             Collections.reverse(listComments);
             mListComments.addAll(listComments);
 
-            mAdapterComments.notifyDataSetChanged();
+            // TODO
+            mAdapter.addAll(mListComments);
+            //mAdapterComments.notifyDataSetChanged();
             mSwipeContainer.setRefreshing(false);
 
         }
