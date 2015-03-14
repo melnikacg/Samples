@@ -7,9 +7,6 @@ import android.widget.ImageView;
 import com.melnikacg.instagrammaterial.R;
 import com.squareup.picasso.Picasso;
 
-/**
- * Created by NP900X3D-A02 on 06.03.2015.
- */
 public class ExImageView extends ImageView {
 
     public ExImageView(final Context context) {

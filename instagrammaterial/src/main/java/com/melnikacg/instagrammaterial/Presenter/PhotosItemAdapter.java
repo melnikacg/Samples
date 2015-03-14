@@ -29,9 +29,9 @@ public class PhotosItemAdapter extends ArrayAdapter<PhotoItem> {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
+
         // Take the data source at position (e.g. 0)
         // Get the data item
-
         final ViewHolder viewHolder;
 
         // Check if we are using a recycled view
@@ -40,37 +40,34 @@ public class PhotosItemAdapter extends ArrayAdapter<PhotoItem> {
 
             viewHolder = new ViewHolder();
             // Lookup the subview within the template
-            viewHolder.imgProfile = (ImageView) convertView.findViewById(R.id.imgProfile);
-            viewHolder.imgPhoto = (ExImageView) convertView.findViewById(R.id.imgPhoto);
-            viewHolder.tvUsername = (TextView) convertView.findViewById(R.id.tvUsername);
-            viewHolder.tvTime = (TextView) convertView.findViewById(R.id.tvTime);
-            viewHolder.tvLikes = (TextView) convertView.findViewById(R.id.tvLikes);
-            viewHolder.tvCaption = (TextView) convertView.findViewById(R.id.tvCaption);
-            viewHolder.tvViewAllComments = (TextView) convertView.findViewById(R.id.tvViewAllComments);
-            viewHolder.tvComment1 = (TextView) convertView.findViewById(R.id.tvComment1);
-            viewHolder.tvComment2 = (TextView) convertView.findViewById(R.id.tvComment2);
+            viewHolder.imageViewProfile = (ImageView) convertView.findViewById(R.id.imgProfile);
+            viewHolder.imageViewPhoto = (ExImageView) convertView.findViewById(R.id.imgPhoto);
+            viewHolder.textViewUsername = (TextView) convertView.findViewById(R.id.tvUsername);
+            viewHolder.textViewTime = (TextView) convertView.findViewById(R.id.tvTime);
+            viewHolder.textViewLikes = (TextView) convertView.findViewById(R.id.tvLikes);
+            viewHolder.textViewCaption = (TextView) convertView.findViewById(R.id.tvCaption);
+            viewHolder.textViewViewAllComments = (TextView) convertView.findViewById(R.id.tvViewAllComments);
+            viewHolder.textView1stComment = (TextView) convertView.findViewById(R.id.tvComment1);
+            viewHolder.textView2ndComment = (TextView) convertView.findViewById(R.id.tvComment2);
 
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-
         PhotoItem photoItem = getItem(position);
-
-
-        viewHolder.tvUsername.setText(photoItem.getUserName());
-        viewHolder.tvTime.setText(photoItem.getRelativeTime());
-        viewHolder.tvLikes.setText(String.format("%d likes", photoItem.getLikesCount()));
+        viewHolder.textViewUsername.setText(photoItem.getUserName());
+        viewHolder.textViewTime.setText(photoItem.getRelativeTime());
+        viewHolder.textViewLikes.setText(String.format("%d likes", photoItem.getLikesCount()));
 
         if (photoItem.getCaption() != null)
-            setCaption(viewHolder.tvCaption, photoItem);
+            setCaption(viewHolder.textViewCaption, photoItem);
         else
-            viewHolder.tvCaption.setVisibility(View.GONE);
+            viewHolder.textViewCaption.setVisibility(View.GONE);
 
         if (photoItem.getCommentsCount() > 0) {
-            viewHolder.tvViewAllComments.setText(String.format("view all %d comments", photoItem.getCommentsCount()));
-            viewHolder.tvViewAllComments.setOnClickListener(new View.OnClickListener() {
+            viewHolder.textViewViewAllComments.setText(String.format("view all %d comments", photoItem.getCommentsCount()));
+            viewHolder.textViewViewAllComments.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getContext(), CommentsActivity.class);
@@ -81,39 +78,39 @@ public class PhotosItemAdapter extends ArrayAdapter<PhotoItem> {
                     getContext().startActivity(intent);
                 }
             });
-            viewHolder.tvViewAllComments.setVisibility(View.VISIBLE);
+            viewHolder.textViewViewAllComments.setVisibility(View.VISIBLE);
         } else {
-            viewHolder.tvViewAllComments.setVisibility(View.GONE);
+            viewHolder.textViewViewAllComments.setVisibility(View.GONE);
         }
 
         // a couple of comments
         ArrayList<CommentItem> commentItems = photoItem.getCommentsArrayList();
         if (commentItems.size() > 0) {
-            setComment(viewHolder.tvComment1, commentItems.get(commentItems.size() - 1));
+            setComment(viewHolder.textView1stComment, commentItems.get(commentItems.size() - 1));
         } else {
-            viewHolder.tvComment1.setVisibility(View.GONE);
+            viewHolder.textView1stComment.setVisibility(View.GONE);
         }
         if (commentItems.size() > 1) {
-            setComment(viewHolder.tvComment2, commentItems.get(commentItems.size() - 2));
+            setComment(viewHolder.textView2ndComment, commentItems.get(commentItems.size() - 2));
         } else {
-            viewHolder.tvComment2.setVisibility(View.GONE);
+            viewHolder.textView2ndComment.setVisibility(View.GONE);
         }
 
         // use device width for photo height
         DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
-        viewHolder.imgPhoto.getLayoutParams().height = displayMetrics.widthPixels;
+        viewHolder.imageViewPhoto.getLayoutParams().height = displayMetrics.widthPixels;
         // Reset the images from the recycled view
-        viewHolder.imgProfile.setImageResource(0);
-        viewHolder.imgPhoto.setImageResource(0);
+        viewHolder.imageViewProfile.setImageResource(0);
+        viewHolder.imageViewPhoto.setImageResource(0);
 
         // Ask for the photo to be added to the imageview based on the photo url
         // Background: Send a network request to the url, download the image bytes, convert into bitmap, insert bitmap into the imageview
-        Picasso.with(getContext()).load(photoItem.getProfileUrl()).into(viewHolder.imgProfile);
+        Picasso.with(getContext()).load(photoItem.getProfileUrl()).into(viewHolder.imageViewProfile);
 
         // instead of ...
         //Picasso.with(getContext()).load(photoItem.getImageUrl()).
-        //        placeholder(R.drawable.instagram_glyph_on_white).into(viewHolder.imgPhoto);
-        viewHolder.imgPhoto.setCustomImageUrl(photoItem.getImageUrl());
+        //        placeholder(R.drawable.instagram_glyph_on_white).into(viewHolder.imageViewPhoto);
+        viewHolder.imageViewPhoto.setCustomImageUrl(photoItem.getImageUrl());
 
         // Return the view for that data item
         return convertView;
@@ -142,15 +139,15 @@ public class PhotosItemAdapter extends ArrayAdapter<PhotoItem> {
     }
 
     private static class ViewHolder {
-        public ImageView imgProfile;
-        public ExImageView imgPhoto;
-        public TextView tvUsername;
-        public TextView tvTime;
-        public TextView tvLikes;
-        public TextView tvCaption;
-        public TextView tvViewAllComments;
-        public TextView tvComment1;
-        public TextView tvComment2;
+        public ImageView imageViewProfile;
+        public ExImageView imageViewPhoto;
+        public TextView textViewUsername;
+        public TextView textViewTime;
+        public TextView textViewLikes;
+        public TextView textViewCaption;
+        public TextView textViewViewAllComments;
+        public TextView textView1stComment;
+        public TextView textView2ndComment;
 
     }
 }

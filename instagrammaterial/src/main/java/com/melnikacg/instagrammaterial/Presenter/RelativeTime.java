@@ -4,9 +4,9 @@ public class RelativeTime {
 
     public static String getRelativeTime(String createdTime) {
 
-        long ct = Long.parseLong(createdTime);
-        long now = System.currentTimeMillis() / 1000;
-        long elapsedSeconds = now - ct;
+        long createdTimeSeconds = Long.parseLong(createdTime);
+        long currentTimeSeconds = System.currentTimeMillis() / 1000;
+        long elapsedSeconds = currentTimeSeconds - createdTimeSeconds;
 
         if (elapsedSeconds < 60) { // less than a minute
             return String.format("%.0fs", elapsedSeconds);

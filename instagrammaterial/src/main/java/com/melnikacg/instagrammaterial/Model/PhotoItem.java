@@ -116,7 +116,6 @@ public class PhotoItem {
             }
 
         }
-
     }
 
     static class PhotoItemLikes {

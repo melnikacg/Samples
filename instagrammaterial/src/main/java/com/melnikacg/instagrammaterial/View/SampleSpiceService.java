@@ -18,7 +18,7 @@ public class SampleSpiceService extends SpiceService {
     public CacheManager createCacheManager(Application application) throws CacheCreationException {
         CacheManager cacheManager = new CacheManager();
 
-        // init
+        // initial
         InFileStringObjectPersister inFileStringObjectPersister = new InFileStringObjectPersister(application);
         InFileBitmapObjectPersister inFileBitmapObjectPersister = new InFileBitmapObjectPersister(application);
 

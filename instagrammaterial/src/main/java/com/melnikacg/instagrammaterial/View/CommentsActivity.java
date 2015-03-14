@@ -41,7 +41,6 @@ public class CommentsActivity extends BaseSampleSpiceActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
         mIdComment = getIntent().getStringExtra("id");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comments_recycler);
@@ -56,8 +55,6 @@ public class CommentsActivity extends BaseSampleSpiceActivity {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-
-
             }
 
             @Override
@@ -66,18 +63,9 @@ public class CommentsActivity extends BaseSampleSpiceActivity {
             }
         });
 
-        // TODO
-        // no decorator
         final SlideInLeftAnimator animator = new SlideInLeftAnimator();
 
-        /*animator.setAddDuration(2000);
-        animator.setRemoveDuration(2000);
-        animator.setMoveDuration(2000);
-        animator.setChangeDuration(2000);
-        mRecyclerView.setItemAnimator(animator);
-*/
         fetchComments();
-
         mSwipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainerComments);
 
         // Setup refresh listener which triggers new data loading
@@ -128,10 +116,6 @@ public class CommentsActivity extends BaseSampleSpiceActivity {
 
         mListComments = new ArrayList<CommentItem>();
 
-        // mAdapterComments = new CommentsItemAdapter(this, mListComments);
-        // ListView lvComments = (ListView) findViewById(R.id.lvComments);
-        // lvComments.setAdapter(mAdapterComments);
-
         String commentsUrl = Constants.MEDIA_URL + mIdComment + Constants.COMMENTS_CLIENT_URL
                 + Constants.CLIENT_ID;
         mCommentsRequest = new SimpleTextRequest(commentsUrl);
@@ -148,20 +132,17 @@ public class CommentsActivity extends BaseSampleSpiceActivity {
         @Override
         public void onRequestSuccess(final String result) {
 
-            //Toast.makeText(CommentsActivity.this, "success", Toast.LENGTH_SHORT).show();
-            final Gson gson = new Gson();
             mListComments.clear();
             mAdapter.clearAll();
 
+            final Gson gson = new Gson();
             ArrayList<CommentItem> listComments = gson.fromJson(result, Comments.class).getCommentItems();
             Collections.reverse(listComments);
+
             mListComments.addAll(listComments);
-
-            // TODO
             mAdapter.addAll(mListComments);
-            //mAdapterComments.notifyDataSetChanged();
-            mSwipeContainer.setRefreshing(false);
 
+            mSwipeContainer.setRefreshing(false);
         }
     }
 }
