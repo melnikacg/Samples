@@ -22,7 +22,7 @@ import com.octo.android.robospice.request.simple.SimpleTextRequest;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
+// import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 
 public class CommentsActivity extends BaseSampleSpiceActivity {
     //public static final String CLIENT_ID = "c8e2cde3f35d402687512d9004ee7b12";
@@ -63,7 +63,7 @@ public class CommentsActivity extends BaseSampleSpiceActivity {
             }
         });
 
-        final SlideInLeftAnimator animator = new SlideInLeftAnimator();
+        //final SlideInLeftAnimator animator = new SlideInLeftAnimator();
 
         fetchComments();
         mSwipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainerComments);
